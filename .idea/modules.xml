@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/AQI.iml" filepath="$PROJECT_DIR$/.idea/AQI.iml" />
       <module fileurl="file://$PROJECT_DIR$/AirQuality/AirQuality.iml" filepath="$PROJECT_DIR$/AirQuality/AirQuality.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AirQualityHistoryService/AirQualityHistoryService.iml" filepath="$PROJECT_DIR$/AirQualityHistoryService/AirQualityHistoryService.iml" />
       <module fileurl="file://$PROJECT_DIR$/AirQualityNotificationService/AirQualityNotificationService.iml" filepath="$PROJECT_DIR$/AirQualityNotificationService/AirQualityNotificationService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Gateway/Gateway.iml" filepath="$PROJECT_DIR$/Gateway/Gateway.iml" />
     </modules>
   </component>
 </project>

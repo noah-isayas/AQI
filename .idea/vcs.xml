@@ -3,6 +3,8 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/AirQuality" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/AirQualityHistoryService" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/AirQualityNotificationService" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Gateway" vcs="Git" />
   </component>
 </project>

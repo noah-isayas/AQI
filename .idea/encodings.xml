@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/AirQuality/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/AirQuality/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AirQualityHistoryService/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/AirQualityNotificationService/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Gateway/src/main/java" charset="UTF-8" />
   </component>
 </project>

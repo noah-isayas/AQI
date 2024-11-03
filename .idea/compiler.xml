@@ -7,19 +7,25 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="AirQualityNotificationService" />
         <module name="AirQuality" />
+        <module name="AirQualityNotificationService" />
+        <module name="AirQualityHistoryService" />
+        <module name="Gateway" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AirQuality" target="19" />
+      <module name="AirQualityHistoryService" target="19" />
       <module name="AirQualityNotificationService" target="19" />
+      <module name="Gateway" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AirQuality" options="-parameters" />
+      <module name="AirQualityHistoryService" options="-parameters" />
       <module name="AirQualityNotificationService" options="-parameters" />
+      <module name="Gateway" options="-parameters" />
     </option>
   </component>
 </project>

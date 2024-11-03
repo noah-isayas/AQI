@@ -37,7 +37,7 @@ public class AirQualityApiClient {
                         int aqi = root.path("list").get(0).path("main").path("aqi").asInt();
 
                         // If AQI is higher than 3, create the DTO and publish the event
-                        if (aqi > 3) {
+                        if (aqi > 1) {
                             AirQualityAlertDTO alertDTO = new AirQualityAlertDTO(
                                     "Air quality is poor", latitude, longitude, aqi);
                             eventPublisher.publishAirQualityNotificationEvent(alertDTO);  // Delegate publishing

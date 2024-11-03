@@ -5,6 +5,8 @@
       <list>
         <option value="$PROJECT_DIR$/AirQuality/pom.xml" />
         <option value="$PROJECT_DIR$/AirQualityNotificationService/pom.xml" />
+        <option value="$PROJECT_DIR$/AirQualityHistoryService/pom.xml" />
+        <option value="$PROJECT_DIR$/Gateway/pom.xml" />
       </list>
     </option>
   </component>
