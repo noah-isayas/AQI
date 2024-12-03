@@ -18,7 +18,7 @@ public class AirQualityEventPublisher {
     public void publishAirQualityNotificationEvent(AirQualityAlertDTO alertDTO) {
         try {
             String alertJson = objectMapper.writeValueAsString(alertDTO);
-            amqpTemplate.convertAndSend("air-quality-exchange", "airquality.alert.high", alertJson);
+            amqpTemplate.convertAndSend("air-quality-exchange", "", alertJson); // Routing key is empty
             System.out.println("Published event: " + alertDTO);
         } catch (Exception e) {
             e.printStackTrace();

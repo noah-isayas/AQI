@@ -14,25 +14,33 @@ import org.springframework.messaging.handler.annotation.support.MessageHandlerMe
 @Configuration
 public class RabbitMQConfig {
 
-    //Exchanges
+    // Exchanges
     @Bean
-    public TopicExchange AirQualityExchange(
+    public FanoutExchange airQualityExchange(
             @Value("${amqp.exchange.name}") final String exchangeName) {
-        return ExchangeBuilder.topicExchange(exchangeName).durable(true).build();
+        return ExchangeBuilder.fanoutExchange(exchangeName).durable(true).build();
     }
 
-    //Bindings
-
+    // Queues
     @Bean
-    public Binding alertBinding(final Queue alertQueue, final TopicExchange airQualityExchange) {
-        return BindingBuilder.bind(alertQueue).to(airQualityExchange).with("airquality.alert.*");
-    }
-
-    //Queues
-
-    @Bean
-    public Queue alertQueue(@Value("${amqp.queue.alert.name}") final String queueName ) {
+    public Queue notificationQueue(@Value("${amqp.queue.notification.name}") final String queueName) {
         return QueueBuilder.durable(queueName).build();
+    }
+
+    @Bean
+    public Queue historyQueue(@Value("${amqp.queue.history.name}") final String queueName) {
+        return QueueBuilder.durable(queueName).build();
+    }
+
+    // Bindings
+    @Bean
+    public Binding notificationBinding(final Queue notificationQueue, final FanoutExchange airQualityExchange) {
+        return BindingBuilder.bind(notificationQueue).to(airQualityExchange);
+    }
+
+    @Bean
+    public Binding historyBinding(final Queue historyQueue, final FanoutExchange airQualityExchange) {
+        return BindingBuilder.bind(historyQueue).to(airQualityExchange);
     }
 
     // Message converter
