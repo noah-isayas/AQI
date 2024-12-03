@@ -1,0 +1,61 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: gateway
+
+  config:
+    import: "optional:consul:"
+
+  cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    consul:
+      enabled: true
+      discovery:
+        query-passing: true
+      config:
+        data-key: application.yml
+        prefix: config
+        format: yaml
+        default-context: defaults
+
+    gateway:
+      routes:
+        - id: AirQuality
+          uri: lb://AirQuality
+          predicates:
+            - Path=/air-quality//**
+
+        - id: AirQualityNotificationService
+          uri: lb://AirQualityNotificationService
+          predicates:
+            - Path=/notification/**
+
+        - id: AirQualityHistoryService
+          uri: lb://AirQualityHistoryService
+          predicates:
+            - Path=/api/history/**
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins:
+              - "http://localhost:3000"
+            allowed-headers:
+              - "*"
+            allowed-methods:
+              - "GET"
+              - "POST"
+              - "OPTIONS"
+            allow-credentials: true
+      default-filters:
+        - name: Retry
+          args:
+            retries: 3
+            methods: GET, POST
+
+
+
+
