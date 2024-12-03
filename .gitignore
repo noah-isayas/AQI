@@ -1,0 +1,92 @@
+# IDE-specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+eclipse/
+*.eclipse
+
+# Build output
+target/
+build/
+bin/
+out/
+
+# Compiled class files
+*.class
+
+# Log files
+*.log
+logs/
+log/
+
+# Maven wrapper
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+
+# Temp files
+*.tmp
+*.bak
+*.swp
+*~.nib
+
+# Package Files
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# Environment/configuration files
+.env
+*.env
+.env.local
+.env.development
+.env.production
+
+# Dependency directories
+node_modules/
+
+# Backup files
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Microservice specific
+**/application-local.properties
+**/application-dev.properties
+**/application-prod.properties
+
+# Sensitive information (add any specific sensitive files)
+**/secrets.properties
+**/credentials.json
+
+# Compiled bytecode
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# H2 database files
+*.mv.db
+*.trace.db
