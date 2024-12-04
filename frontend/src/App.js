@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import RealTimeAirQuality from './pages/RealTimeAirQuality';
+import HistoricalAirQuality from './pages/HistoricalAirQuality';
+import Notifications from './pages/Notifications';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <div className="App">
+                <Routes>
+                    <Route path="/real-time" element={<RealTimeAirQuality />} />
+                    <Route path="/historical" element={<HistoricalAirQuality />} />
+                    <Route path="/notifications" element={<Notifications />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

@@ -27,7 +27,7 @@ spring:
         - id: AirQuality
           uri: lb://AirQuality
           predicates:
-            - Path=/air-quality//**
+            - Path=/air-quality/**
 
         - id: AirQualityNotificationService
           uri: lb://AirQualityNotificationService
