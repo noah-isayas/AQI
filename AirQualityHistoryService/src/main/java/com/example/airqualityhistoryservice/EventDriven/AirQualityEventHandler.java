@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AirQualityEventHandler {
 
+
     @Autowired
     private AirQualityHistoryService historyService;
 
