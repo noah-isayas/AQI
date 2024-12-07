@@ -25,12 +25,21 @@ public class AirQualityController {
                     try {
                         JsonNode root = new ObjectMapper().readTree(response);
                         JsonNode main = root.path("list").get(0).path("main");
+                        JsonNode components = root.path("list").get(0).path("components");
 
                         AirQualityAlertDTO dto = new AirQualityAlertDTO();
                         dto.setLatitude(lat);
                         dto.setLongitude(lon);
                         dto.setAqi(main.path("aqi").asInt());
                         dto.setMessage("Air quality data retrieved successfully");
+                        dto.setCo(components.path("co").asDouble());
+                        dto.setNo(components.path("no").asDouble());
+                        dto.setNo2(components.path("no2").asDouble());
+                        dto.setO3(components.path("o3").asDouble());
+                        dto.setSo2(components.path("so2").asDouble());
+                        dto.setPm2_5(components.path("pm2_5").asDouble());
+                        dto.setPm10(components.path("pm10").asDouble());
+                        dto.setNh3(components.path("nh3").asDouble());
 
                         return dto;
                     } catch (Exception e) {

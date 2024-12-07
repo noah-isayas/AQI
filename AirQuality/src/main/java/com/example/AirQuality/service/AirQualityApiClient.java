@@ -34,12 +34,26 @@ public class AirQualityApiClient {
                 .doOnNext(response -> {
                     try {
                         JsonNode root = new ObjectMapper().readTree(response);
-                        int aqi = root.path("list").get(0).path("main").path("aqi").asInt();
+                        JsonNode main = root.path("list").get(0).path("main");
+                        JsonNode components = root.path("list").get(0).path("components");
+                        int aqi = main.path("aqi").asInt();
 
                         // If AQI is higher than 3, create the DTO and publish the event
                         if (aqi > 1) {
                             AirQualityAlertDTO alertDTO = new AirQualityAlertDTO(
-                                    "Air quality is poor", latitude, longitude, aqi);
+                                    "Air quality is poor",
+                                    latitude,
+                                    longitude,
+                                    aqi,
+                                    components.path("co").asDouble(),
+                                    components.path("no").asDouble(),
+                                    components.path("no2").asDouble(),
+                                    components.path("o3").asDouble(),
+                                    components.path("so2").asDouble(),
+                                    components.path("pm2_5").asDouble(),
+                                    components.path("pm10").asDouble(),
+                                    components.path("nh3").asDouble()
+                            );
                             eventPublisher.publishAirQualityNotificationEvent(alertDTO);  // Delegate publishing
                         }
                     } catch (Exception e) {
@@ -51,4 +65,3 @@ public class AirQualityApiClient {
                 });
     }
 }
-

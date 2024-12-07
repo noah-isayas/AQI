@@ -40,6 +40,14 @@ function RealTimeAirQuality() {
                     <p>Message: {data.message}</p>
                     <p>Location: ({data.latitude}, {data.longitude})</p>
                     <p>Air Quality Index: {data.aqi}</p>
+                    <p>CO: {data.co}</p>
+                    <p>NO: {data.no}</p>
+                    <p>NO2: {data.no2}</p>
+                    <p>O3: {data.o3}</p>
+                    <p>SO2: {data.so2}</p>
+                    <p>PM2.5: {data.pm2_5}</p>
+                    <p>PM10: {data.pm10}</p>
+                    <p>NH3: {data.nh3}</p>
                 </div>
             )}
         </div>

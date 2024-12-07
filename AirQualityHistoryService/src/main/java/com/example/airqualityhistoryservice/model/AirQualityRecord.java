@@ -1,26 +1,32 @@
 package com.example.airqualityhistoryservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
-import java.util.Map;
 
 @Data
-@Document(collection = "air_quality_records")
-//@JsonIgnoreProperties(ignoreUnknown = true)
+@Document(collection = "airQualityRecords")
 public class AirQualityRecord {
     @Id
     private String id;
     private double latitude;
     private double longitude;
-    private Instant timestamp;
+    private LocalDateTime timestamp;
     private int aqi;
-    private Map<String, Double> pollutants; //Co, N02
-
+    private Pollutants pollutants;
     private String message;
+
+    @Data
+    public static class Pollutants {
+        private double co;
+        private double no;
+        private double no2;
+        private double o3;
+        private double so2;
+        private double pm2_5;
+        private double pm10;
+        private double nh3;
+    }
 }
