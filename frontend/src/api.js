@@ -1,7 +1,13 @@
 const API_BASE_URL = 'http://localhost:8000';
 
-export const fetchRealTimeAirQuality = async (latitude, longitude) => {
-    const response = await fetch(`${API_BASE_URL}/air-quality?lat=${latitude}&lon=${longitude}`);
+export const fetchRealTimeAirQuality = async (latitude, longitude, location) => {
+    let url = `${API_BASE_URL}/air-quality?`;
+    if (location) {
+        url += `location=${location}`;
+    } else {
+        url += `lat=${latitude}&lon=${longitude}`;
+    }
+    const response = await fetch(url);
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }

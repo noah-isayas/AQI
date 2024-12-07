@@ -4,12 +4,14 @@ import { fetchRealTimeAirQuality } from '../api';
 function RealTimeAirQuality() {
     const [latitude, setLatitude] = useState('');
     const [longitude, setLongitude] = useState('');
+    const [location, setLocation] = useState('');
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
+    const [searchMode, setSearchMode] = useState('coordinates'); // 'coordinates' or 'location'
 
     const handleFetchData = async () => {
         try {
-            const result = await fetchRealTimeAirQuality(latitude, longitude);
+            const result = await fetchRealTimeAirQuality(latitude, longitude, location);
             setData(result);
             setError(null);
         } catch (err) {
@@ -21,18 +23,36 @@ function RealTimeAirQuality() {
     return (
         <div>
             <h1>Real-Time Air Quality</h1>
-            <input
-                type="text"
-                value={latitude}
-                onChange={(e) => setLatitude(e.target.value)}
-                placeholder="Enter latitude"
-            />
-            <input
-                type="text"
-                value={longitude}
-                onChange={(e) => setLongitude(e.target.value)}
-                placeholder="Enter longitude"
-            />
+            <div>
+                <button onClick={() => setSearchMode('coordinates')}>Search by Coordinates</button>
+                <button onClick={() => setSearchMode('location')}>Search by Location Name</button>
+            </div>
+            {searchMode === 'coordinates' && (
+                <div>
+                    <input
+                        type="text"
+                        value={latitude}
+                        onChange={(e) => setLatitude(e.target.value)}
+                        placeholder="Enter latitude"
+                    />
+                    <input
+                        type="text"
+                        value={longitude}
+                        onChange={(e) => setLongitude(e.target.value)}
+                        placeholder="Enter longitude"
+                    />
+                </div>
+            )}
+            {searchMode === 'location' && (
+                <div>
+                    <input
+                        type="text"
+                        value={location}
+                        onChange={(e) => setLocation(e.target.value)}
+                        placeholder="Enter location name"
+                    />
+                </div>
+            )}
             <button onClick={handleFetchData}>Get Air Quality</button>
             {error && <p>{error}</p>}
             {data && (

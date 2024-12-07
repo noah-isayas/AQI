@@ -64,4 +64,23 @@ public class AirQualityApiClient {
                     return Mono.error(new RuntimeException("Error fetching air quality data: " + e.getMessage()));
                 });
     }
+
+    public Mono<double[]> getCoordinatesByLocationName(String location) {
+        String uri = String.format("http://api.openweathermap.org/geo/1.0/direct?q=%s&limit=1&appid=%s", location, apiKey);
+
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(response -> {
+                    try {
+                        JsonNode root = new ObjectMapper().readTree(response).get(0);
+                        double lat = root.path("lat").asDouble();
+                        double lon = root.path("lon").asDouble();
+                        return new double[]{lat, lon};
+                    } catch (Exception e) {
+                        throw new RuntimeException("Failed to parse response", e);
+                    }
+                });
+    }
 }
