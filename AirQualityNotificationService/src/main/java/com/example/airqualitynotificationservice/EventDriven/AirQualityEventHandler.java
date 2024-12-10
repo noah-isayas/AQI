@@ -19,7 +19,6 @@ public class AirQualityEventHandler {
     @RabbitListener(queues = "${amqp.queue.alert.name}")
     public void receiveAlert(String message) {
         try {
-            Thread.sleep(5000);  // Simulating processing delay
             AirQualityAlertDTO alertDTO = objectMapper.readValue(message, AirQualityAlertDTO.class);
             System.out.println("Received alert: " + alertDTO);
         } catch (Exception e) {
