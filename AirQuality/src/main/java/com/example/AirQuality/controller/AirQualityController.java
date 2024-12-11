@@ -81,4 +81,20 @@ public class AirQualityController {
             return Mono.error(new RuntimeException("Either coordinates or location name must be provided"));
         }
     }
+    @GetMapping("/air-quality/history")
+    public Mono<String> getHistoricalAirQuality(
+            @RequestParam(required = false) Double lat,
+            @RequestParam(required = false) Double lon,
+            @RequestParam(required = false) String location) {
+        if (location != null) {
+            return airQualityApiClient.getCoordinatesByLocationName(location)
+                    .flatMap(coords -> airQualityApiClient.getHistoricalAirQuality(coords[0], coords[1]));
+        } else if (lat != null && lon != null) {
+            return airQualityApiClient.getHistoricalAirQuality(lat, lon);
+        } else {
+            return Mono.error(new RuntimeException("Either coordinates or location name must be provided"));
+        }
+    }
+
+
 }

@@ -83,4 +83,22 @@ public class AirQualityApiClient {
                     }
                 });
     }
+    public Mono<String> getHistoricalAirQuality(double latitude, double longitude) {
+        long end = System.currentTimeMillis() / 1000; // Current time in Unix timestamp
+        long start = end - (5 * 24 * 60 * 60); // 5 days ago
+
+        String uri = String.format(
+                "http://api.openweathermap.org/data/2.5/air_pollution/history?lat=%s&lon=%s&start=%d&end=%d&appid=%s",
+                latitude, longitude, start, end, apiKey);
+
+        return webClient.get()
+                .uri(uri)
+                .retrieve()
+                .bodyToMono(String.class)
+                .doOnNext(response -> System.out.println("Fetched historical data: " + response))
+                .onErrorResume(WebClientResponseException.class, e -> {
+                    return Mono.error(new RuntimeException("Error fetching historical air quality data: " + e.getMessage()));
+                });
+    }
+
 }
