@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AirQualityAlertDTO {
     private String message;
+    private String city;
     private double latitude;
     private double longitude;
     private int aqi;

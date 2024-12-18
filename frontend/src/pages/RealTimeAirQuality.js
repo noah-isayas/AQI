@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { fetchRealTimeAirQuality } from '../api';
+import TopBar from '../components/TopBar';
+import './RealTimeAirQuality.css';
 
 function RealTimeAirQuality() {
     const [latitude, setLatitude] = useState('');
@@ -22,54 +24,58 @@ function RealTimeAirQuality() {
 
     return (
         <div>
-            <h1>Real-Time Air Quality</h1>
-            <div>
-                <button onClick={() => setSearchMode('coordinates')}>Search by Coordinates</button>
-                <button onClick={() => setSearchMode('location')}>Search by Location Name</button>
+            <TopBar />
+            <div className="realtime-container">
+                <h1>Real-Time Air Quality</h1>
+                <div>
+                    <button onClick={() => setSearchMode('coordinates')}>Search by Coordinates</button>
+                    <button onClick={() => setSearchMode('location')}>Search by Location Name</button>
+                </div>
+                {searchMode === 'coordinates' && (
+                    <div>
+                        <input
+                            type="text"
+                            value={latitude}
+                            onChange={(e) => setLatitude(e.target.value)}
+                            placeholder="Enter latitude"
+                        />
+                        <input
+                            type="text"
+                            value={longitude}
+                            onChange={(e) => setLongitude(e.target.value)}
+                            placeholder="Enter longitude"
+                        />
+                    </div>
+                )}
+                {searchMode === 'location' && (
+                    <div>
+                        <input
+                            type="text"
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
+                            placeholder="Enter location name"
+                        />
+                    </div>
+                )}
+                <button onClick={handleFetchData}>Get Air Quality</button>
+                {error && <p className="error">{error}</p>}
+                {data && (
+                    <div className="realtime-results">
+                        <p><span>Message:</span> {data.message}</p>
+                        <p><span>City name:</span> {location || "N/A"}</p>
+                        <p><span>Location:</span> ({data.latitude}, {data.longitude})</p>
+                        <p><span>Air Quality Index:</span> {data.aqi}</p>
+                        <p><span>CO:</span> {data.co}</p>
+                        <p><span>NO:</span> {data.no}</p>
+                        <p><span>NO2:</span> {data.no2}</p>
+                        <p><span>O3:</span> {data.o3}</p>
+                        <p><span>SO2:</span> {data.so2}</p>
+                        <p><span>PM2.5:</span> {data.pm2_5}</p>
+                        <p><span>PM10:</span> {data.pm10}</p>
+                        <p><span>NH3:</span> {data.nh3}</p>
+                    </div>
+                )}
             </div>
-            {searchMode === 'coordinates' && (
-                <div>
-                    <input
-                        type="text"
-                        value={latitude}
-                        onChange={(e) => setLatitude(e.target.value)}
-                        placeholder="Enter latitude"
-                    />
-                    <input
-                        type="text"
-                        value={longitude}
-                        onChange={(e) => setLongitude(e.target.value)}
-                        placeholder="Enter longitude"
-                    />
-                </div>
-            )}
-            {searchMode === 'location' && (
-                <div>
-                    <input
-                        type="text"
-                        value={location}
-                        onChange={(e) => setLocation(e.target.value)}
-                        placeholder="Enter location name"
-                    />
-                </div>
-            )}
-            <button onClick={handleFetchData}>Get Air Quality</button>
-            {error && <p>{error}</p>}
-            {data && (
-                <div>
-                    <p>Message: {data.message}</p>
-                    <p>Location: ({data.latitude}, {data.longitude})</p>
-                    <p>Air Quality Index: {data.aqi}</p>
-                    <p>CO: {data.co}</p>
-                    <p>NO: {data.no}</p>
-                    <p>NO2: {data.no2}</p>
-                    <p>O3: {data.o3}</p>
-                    <p>SO2: {data.so2}</p>
-                    <p>PM2.5: {data.pm2_5}</p>
-                    <p>PM10: {data.pm10}</p>
-                    <p>NH3: {data.nh3}</p>
-                </div>
-            )}
         </div>
     );
 }

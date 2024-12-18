@@ -27,41 +27,61 @@ public class AirQualityApiClient {
     public Mono<String> getAirQuality(double latitude, double longitude) {
         String uri = String.format("?lat=%s&lon=%s&appid=%s", latitude, longitude, apiKey);
 
+        return getLocationNameByCoordinates(latitude, longitude)
+                .flatMap(location -> webClient.get()
+                        .uri(uri)
+                        .retrieve()
+                        .bodyToMono(String.class)
+                        .doOnNext(response -> {
+                            try {
+                                JsonNode root = new ObjectMapper().readTree(response);
+                                JsonNode main = root.path("list").get(0).path("main");
+                                JsonNode components = root.path("list").get(0).path("components");
+                                int aqi = main.path("aqi").asInt();
+
+                                // If AQI is higher than 1, create the DTO and publish the event
+                                if (aqi > 1) {
+                                    AirQualityAlertDTO alertDTO = new AirQualityAlertDTO(
+                                            "Air quality is poor",
+                                            location,
+                                            latitude,
+                                            longitude,
+                                            aqi,
+                                            components.path("co").asDouble(),
+                                            components.path("no").asDouble(),
+                                            components.path("no2").asDouble(),
+                                            components.path("o3").asDouble(),
+                                            components.path("so2").asDouble(),
+                                            components.path("pm2_5").asDouble(),
+                                            components.path("pm10").asDouble(),
+                                            components.path("nh3").asDouble()
+                                    );
+                                    eventPublisher.publishAirQualityNotificationEvent(alertDTO);  // Delegate publishing
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        })
+                        .onErrorResume(WebClientResponseException.class, e -> {
+                            return Mono.error(new RuntimeException("Error fetching air quality data: " + e.getMessage()));
+                        })
+                );
+    }
+
+    public Mono<String> getLocationNameByCoordinates(double latitude, double longitude) {
+        String uri = String.format("http://api.openweathermap.org/geo/1.0/reverse?lat=%s&lon=%s&limit=1&appid=%s", latitude, longitude, apiKey);
+
         return webClient.get()
                 .uri(uri)
                 .retrieve()
                 .bodyToMono(String.class)
-                .doOnNext(response -> {
+                .map(response -> {
                     try {
-                        JsonNode root = new ObjectMapper().readTree(response);
-                        JsonNode main = root.path("list").get(0).path("main");
-                        JsonNode components = root.path("list").get(0).path("components");
-                        int aqi = main.path("aqi").asInt();
-
-                        // If AQI is higher than 3, create the DTO and publish the event
-                        if (aqi > 1) {
-                            AirQualityAlertDTO alertDTO = new AirQualityAlertDTO(
-                                    "Air quality is poor",
-                                    latitude,
-                                    longitude,
-                                    aqi,
-                                    components.path("co").asDouble(),
-                                    components.path("no").asDouble(),
-                                    components.path("no2").asDouble(),
-                                    components.path("o3").asDouble(),
-                                    components.path("so2").asDouble(),
-                                    components.path("pm2_5").asDouble(),
-                                    components.path("pm10").asDouble(),
-                                    components.path("nh3").asDouble()
-                            );
-                            eventPublisher.publishAirQualityNotificationEvent(alertDTO);  // Delegate publishing
-                        }
+                        JsonNode root = new ObjectMapper().readTree(response).get(0);
+                        return root.path("name").asText();
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        throw new RuntimeException("Failed to parse response", e);
                     }
-                })
-                .onErrorResume(WebClientResponseException.class, e -> {
-                    return Mono.error(new RuntimeException("Error fetching air quality data: " + e.getMessage()));
                 });
     }
 

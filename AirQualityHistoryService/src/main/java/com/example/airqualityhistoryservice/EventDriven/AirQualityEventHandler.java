@@ -34,6 +34,8 @@ public class AirQualityEventHandler {
             AirQualityRecord record = new AirQualityRecord();
             record.setLatitude(root.path("latitude").asDouble());
             record.setLongitude(root.path("longitude").asDouble());
+            record.setCity(root.path("city").asText());
+            System.out.println("Extracted city name: " + record.getCity()); // Debug statement
             record.setAqi(root.path("aqi").asInt());
             record.setMessage(root.path("message").asText());
 

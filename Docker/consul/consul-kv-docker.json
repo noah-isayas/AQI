@@ -1,0 +1,30 @@
+[
+  {
+    "key": "config/",
+    "value": ""
+  },
+  {
+    "key": "config/airquality,docker/",
+    "value": ""
+  },
+  {
+    "key": "config/airquality,docker/application.yml",
+    "value": "c3ByaW5nOgogIHJhYmJpdG1xOgogICAgaG9zdDogcmFiYml0bXEKICBwb3J0OiA1Njcy"
+  },
+  {
+    "key": "config/airqualitynotification,docker/",
+    "value": ""
+  },
+  {
+    "key": "config/airqualitynotification,docker/application.yml",
+    "value": "c3ByaW5nOgogIHJhYmJpdG1xOgogICAgaG9zdDogcmFiYml0bXEKICBwb3J0OiA1Njcy"
+  },
+  {
+    "key": "config/airqualityhistory,docker/",
+    "value": ""
+  },
+  {
+    "key": "config/airqualityhistory,docker/application.yml",
+    "value": "c3ByaW5nOgogIHJhYmJpdG1xOgogICAgaG9zdDogcmFiYml0bXEKICBwb3J0OiA1Njcy"
+  }
+]

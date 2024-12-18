@@ -1,0 +1,95 @@
+/* Container */
+.stored-container {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 50px auto;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+/* Heading */
+.stored-container h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Error Message */
+.error-message {
+    color: #d9534f;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Data List */
+.data-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Data Card */
+.data-card {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.data-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.data-card h2 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 5px;
+}
+
+.data-card p {
+    margin: 5px 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+.data-card p span {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Pollutants List */
+.pollutant-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.pollutant-list li {
+    margin: 5px 0;
+    color: #333;
+}
+
+.pollutant-list li span {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+/* No Data Message */
+.no-data {
+    color: #777;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 20px;
+}

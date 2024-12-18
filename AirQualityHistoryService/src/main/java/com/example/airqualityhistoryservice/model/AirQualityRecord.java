@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class AirQualityRecord {
     @Id
     private String id;
+    private String city;
     private double latitude;
     private double longitude;
     private LocalDateTime timestamp;

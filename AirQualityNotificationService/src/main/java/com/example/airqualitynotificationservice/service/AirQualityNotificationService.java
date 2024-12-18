@@ -1,4 +1,4 @@
-/*package com.example.airqualitynotificationservice.service;
+package com.example.airqualitynotificationservice.service;
 
 import com.example.airqualitynotificationservice.DTO.AirQualityAlertDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,4 +24,4 @@ public class AirQualityNotificationService {
             e.printStackTrace();
         }
     }
-}*/
+}

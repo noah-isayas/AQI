@@ -1,5 +1,4 @@
 const API_BASE_URL = 'http://localhost:8000';
-
 // Fetch real-time air quality data
 export const fetchRealTimeAirQuality = async (latitude, longitude, location) => {
     try {
@@ -22,8 +21,21 @@ export const fetchRealTimeAirQuality = async (latitude, longitude, location) => 
         console.error('fetchRealTimeAirQuality:', error.message);
         throw error; // Re-throw for handling in frontend
     }
+
 };
 
+export const fetchStoredData = async () => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/api/history/stored-data`);
+        if (!response.ok) {
+            throw new Error(`Error fetching stored data: ${response.statusText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('fetchStoredData:', error.message);
+        throw error;
+    }
+};
 // Fetch historical air quality data
 export const fetchHistoricalAirQuality = async (latitude, longitude, location) => {
     try {

@@ -1,19 +1,22 @@
 package com.example.AirQuality.EventDriven;
 
 import com.example.AirQuality.DTO.AirQualityAlertDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
 public class AirQualityEventPublisher {
 
-    @Autowired
-    private AmqpTemplate amqpTemplate;
+    private final AmqpTemplate amqpTemplate;
+    private final ObjectMapper objectMapper;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    public AirQualityEventPublisher(AmqpTemplate amqpTemplate, ObjectMapper objectMapper) {
+        this.amqpTemplate = amqpTemplate;
+        this.objectMapper = objectMapper;
+    }
 
     public void publishAirQualityNotificationEvent(AirQualityAlertDTO alertDTO) {
         try {

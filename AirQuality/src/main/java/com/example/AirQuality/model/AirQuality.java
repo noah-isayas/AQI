@@ -17,7 +17,6 @@ public class AirQuality {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String city;
 
     private String country;
 

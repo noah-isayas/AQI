@@ -9,18 +9,15 @@ spring:
     import: "optional:consul:"
 
   cloud:
-    loadbalancer:
-      ribbon:
-        enabled: false
     consul:
       enabled: true
       discovery:
         query-passing: true
       config:
         data-key: application.yml
-        prefix: config
         format: yaml
         default-context: defaults
+        prefixes: config
 
     gateway:
       routes:
@@ -41,21 +38,17 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowed-origins:
+            allowedOrigins:
               - "http://localhost:3000"
-            allowed-headers:
+            allowedHeaders:
               - "*"
-            allowed-methods:
+            allowedMethods:
               - "GET"
               - "POST"
               - "OPTIONS"
-            allow-credentials: true
+            allowCredentials: true
       default-filters:
         - name: Retry
           args:
             retries: 3
             methods: GET, POST
-
-
-
-
