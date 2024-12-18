@@ -189,6 +189,38 @@ The system is built with the following technologies:
 - **OpenWeatherMap API**:
     - Source of real-time air quality data.
 
+### User Stories and Implementation
+Please read reflection for explanation on notifications
+#### 1. Access Real-Time Air Quality Data
+**As a user, I want to see the current air quality in my area to inform my activities.**
+
+- **Implementation**:
+    - The Air Quality microservice fetches real-time data from the external API and exposes it through a REST endpoint. This data is formatted and passed to the two other services using Eventdriven architectur.
+    - The frontend React application displays the current air quality data, which is accessible via a user-friendly interface.
+
+---
+
+#### 2. View Historical Air Quality Trends
+**As a user, I want to review historical air quality data to understand pollution trends and assess health impacts.**
+
+- **Implementation**:
+    - The AirQualityHistoryService microservice stores historical air quality data recieved from rabbit in MongoDB.
+    - The frontend provides a visualization of this data, enabling users to analyze trends over time.
+
+---
+
+#### 3. Receive Notifications for Poor Air Quality
+**As a user, I want to be alerted when air quality is hazardous so I can take necessary precautions.**
+
+- **Implementation**:
+    - The Air Quality microservice publishes an event via RabbitMQ when air quality exceeds hazardous thresholds.
+    - The Notification Service consumes these events and logs notifications to the **console/terminal**.
+    - While functional, notifications currently appear in the console/terminal instead of an external system like email, SNS, or a UI alert.
+
+**Future Improvement**:  
+The notification feature could be enhanced by integrating AWS SNS or a frontend UI-based alert system to provide more user-friendly and actionable notifications.
+
+
 ## Key Functionalities
 1. **Air Quality Data Fetching**:
     - Retrieves current air quality data based on location.
